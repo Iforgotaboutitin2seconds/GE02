@@ -47,6 +47,7 @@ class Student(models.Model):
 
     portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE, unique=True)
 
+'''
 class ProjectsInPortfolio(models.Model):
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE) 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
@@ -54,6 +55,7 @@ class ProjectsInPortfolio(models.Model):
     def __str__(self):
         return f"{self.portfolio.title} - {self.project.title}"
 
-class Meta:
-    #ensures that each project is associated with only one portfolio
-    unique_together = ('portfolio', 'project')
+    class Meta:
+        #ensures that each project is associated with only one portfolio
+        unique_together = ('portfolio', 'project')
+'''
