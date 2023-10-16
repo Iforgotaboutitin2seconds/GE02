@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 
+from django.views.generic import ListView, DetailView
+from .models import *
+
+
 urlpatterns = [
 #path function defines a url pattern
 #'' is empty to represent based path to app
@@ -12,8 +16,6 @@ path('', views.index, name='index'),
 #include path to list and detail views
 path('students/', views.StudentListView.as_view(), name= 'students'),
 path('student/<int:pk>', views.StudentDetailView.as_view(), name='student-detail'),
-
-
-
+path('portfolio/<int:pk>', views.PortfolioDetailView.as_view(), name='portfolio-detail'),
 ]
 
