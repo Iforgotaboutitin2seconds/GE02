@@ -20,6 +20,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return reverse('project-detail', args=[str(self.id)])
+    
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default = None)
 
 class Student(models.Model):

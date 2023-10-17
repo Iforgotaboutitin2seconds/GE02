@@ -21,5 +21,18 @@ class StudentListView(generic.ListView):
 class StudentDetailView(generic.DetailView):
     model = Student
 
+# for Portfolio
 class PortfolioDetailView(generic.DetailView):
     model = Portfolio
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Include the list of projects for the current portfolio
+        context['projects'] = Project.objects.filter(portfolio=self.object)
+        return context
+
+#for project
+class ProjectListView(generic.ListView):
+    model = Project
+class ProjectDetailVIew(generic.DetailView):
+    model = Project
