@@ -1,23 +1,24 @@
 {% extends 'portfolio_app/base_template.html' %}
 
 {% block content %}
-  <h1>Portfolio Title: {{ portfolio.title }}</h1>
+<h1>Portfolio Title: {{ portfolio.title }}</h1>
 
-  <p><strong>Portfolio Active:</strong> {{ portfolio.is_active }}</p>
-  <p><strong>About:</strong> {{ portfolio.description }}</p>
-  <p><strong>Contact Email:</strong></p>
+<p><strong>Portfolio Active:</strong> {{ portfolio.is_active }}</p>
+<p><strong>About:</strong> {{ portfolio.description }}</p>
+<p><strong>Contact Email:</strong></p>
 
-  <h1>Project List</h1>
-  <a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
-  <ul>
-    {% for project in projects %}
-        <li>
-            {{ project.title }}:
-            <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
-            <a class="btn btn-primary" href="{% url 'update_project' portfolio_id=portfolio.id project_id=project.id %}" role="button">Update</a>
-            <a class="btn btn-primary" href="{% url 'delete_project' portfolio.id project.id %}" role="button" onclick="return confirmDelete('{{ project.title }}')">Delete</a>
-
-        </li>
-    {% endfor %}
-  </ul>
+<h1>Project List</h1>
+<a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
+<ul>
+  {% for project in projects %}
+  <li>
+    {{ project.title }}:
+    <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
+    <a class="btn btn-primary" href="{% url 'update_project' portfolio_id=portfolio.id project_id=project.id %}"
+      role="button">Update</a>
+    <a class="btn btn-primary" href="{% url 'delete_project' portfolio.id project.id %}" role="button"
+      onclick="return confirmDelete('{{ project.title }}')">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}
