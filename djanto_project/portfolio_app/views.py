@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 # Extra import for generic list and details views work
@@ -7,6 +7,8 @@ from .models import *
 
 # Extra import for form
 from .forms import *
+from django.views import View
+from django.contrib import messages
 
 # Create your views here.
 
@@ -74,13 +76,41 @@ def createProject(request, portfolio_id):
     context = {'form': form}
     return render(request, 'portfolio_app/project_form.html', context)
 
-def deleteProject(request, portfolio_id, project_id):
-    portfolio = Portfolio.objects.get(pk=portfolio_id)
-    project = Project.objects.get(pk=project_id)
+class DeleteProjectView(View):
+    template_name = 'portfolio_app/delete_project.html'
 
-    if request.method == 'POST':
-        project.delete()
-        return redirect('portfolio-detail', portfolio_id)
+    def get(self, request, portfolio_id, project_id):
+        form = DeleteProjectForm()
+        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id, 'project_id': project_id})
 
-    context = {'project': project}
-    return render(request, 'portfolio_app/delete_project.html', context)
+    def post(self, request, portfolio_id, project_id):
+        form = DeleteProjectForm(request.POST)
+
+        if form.is_valid() and form.cleaned_data['confirmation']:
+            project = Project.objects.get(pk=project_id)
+            project.delete()
+            messages.success(request, 'Project deleted successfully.')
+            return redirect('portfolio-detail', portfolio_id)
+
+        messages.error(request, 'Project deletion failed. Please confirm the deletion.')
+        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id, 'project_id': project_id})
+
+class UpdateProjectView(View):
+    template_name = 'portfolio_app/update_project.html'
+
+    def get(self, request, portfolio_id, project_id):
+        project = get_object_or_404(Project, pk=project_id)
+        form = ProjectForm(instance=project)
+        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id, 'project_id': project_id})
+
+    def post(self, request, portfolio_id, project_id):
+        project = get_object_or_404(Project, pk=project_id)
+        form = ProjectForm(request.POST, instance=project)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Project updated successfully.')
+            return redirect('portfolio-detail', portfolio_id)
+
+        messages.error(request, 'Project update failed. Please check the form data.')
+        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id, 'project_id': project_id})

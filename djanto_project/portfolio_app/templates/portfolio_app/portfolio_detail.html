@@ -14,7 +14,9 @@
         <li>
             {{ project.title }}:
             <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
-            <a class="btn btn-primary" href="{% url 'delete_project' portfolio.id project.id %}" role="button">Delete</a>
+            <a class="btn btn-primary" href="{% url 'update_project' portfolio_id=portfolio.id project_id=project.id %}" role="button">Update</a>
+            <a class="btn btn-primary" href="{% url 'delete_project' portfolio.id project.id %}" role="button" onclick="return confirmDelete('{{ project.title }}')">Delete</a>
+
         </li>
     {% endfor %}
   </ul>

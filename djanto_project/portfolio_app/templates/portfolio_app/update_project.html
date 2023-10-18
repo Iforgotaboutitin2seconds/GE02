@@ -1,12 +1,12 @@
 {% extends 'portfolio_app/base_template.html' %}
 
 {% block content %}
-  <h1>Delete Project</h1>
+  <h1>Update Project</h1>
 
-  <form method="post" action="{% url 'delete_project' portfolio_id=portfolio_id project_id=project_id %}">
+  <form method="post" action="{% url 'update_project' portfolio_id=portfolio_id project_id=project_id %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Delete</button>
+    <button type="submit">Update Project</button>
     <a href="{% url 'portfolio-detail' portfolio_id %}">Cancel</a>
   </form>
 {% endblock %}

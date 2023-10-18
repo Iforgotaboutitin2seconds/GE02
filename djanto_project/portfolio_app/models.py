@@ -13,7 +13,7 @@ class Portfolio(models.Model):
 
     def get_absolute_url(self):
         return reverse('portfolio-detail', args=[str(self.id)])
-
+    
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
