@@ -5,13 +5,16 @@
 
   <p><strong>Portfolio Active:</strong> {{ portfolio.is_active }}</p>
   <p><strong>About:</strong> {{ portfolio.description }}</p>
-  <p><strong>Contact Email:</strong> {{ student.portfolio.title }}</p>
+  <p><strong>Contact Email:</strong></p>
 
   <h1>Project List</h1>
+  <a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
   <ul>
     {% for project in projects %}
         <li>
-            <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+            {{ project.title }}:
+            <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
+            <a class="btn btn-primary" href="{% url 'delete_project' portfolio.id project.id %}" role="button">Delete</a>
         </li>
     {% endfor %}
   </ul>
