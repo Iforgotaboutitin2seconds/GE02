@@ -37,4 +37,6 @@ urlpatterns = [
         views.UpdateProjectView.as_view(),
         name="update_project",
     ),
+    path('update_portfolio/<int:portfolio_id>/', views.UpdatePortfolioView.as_view(), name='update_portfolio'),
+
 ]
