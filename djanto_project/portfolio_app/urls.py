@@ -14,14 +14,16 @@ urlpatterns = [
     path("", views.index, name="index"),
     # include path to list and detail views
     path("students/", views.StudentListView.as_view(), name="students"),
-    path("student/<int:pk>", views.StudentDetailView.as_view(), name="student-detail"),
+    path("student/<int:pk>", views.StudentDetailView.as_view(),
+         name="student-detail"),
     path(
         "portfolio/<int:pk>",
         views.PortfolioDetailView.as_view(),
         name="portfolio-detail",
     ),
     path("projects/", views.ProjectListView.as_view(), name="projects"),
-    path("project/<int:pk>", views.ProjectDetailVIew.as_view(), name="project-detail"),
+    path("project/<int:pk>", views.ProjectDetailVIew.as_view(),
+         name="project-detail"),
     path(
         "portfolio/<int:portfolio_id>/create_project/",
         views.createProject,
@@ -37,6 +39,7 @@ urlpatterns = [
         views.UpdateProjectView.as_view(),
         name="update_project",
     ),
-    path('update_portfolio/<int:portfolio_id>/', views.UpdatePortfolioView.as_view(), name='update_portfolio'),
+    path('update_portfolio/<int:portfolio_id>/',
+         views.UpdatePortfolioView.as_view(), name='update_portfolio'),
 
 ]
