@@ -114,25 +114,3 @@ class UpdateProjectView(View):
 
         messages.error(request, 'Project update failed. Please check the form data.')
         return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id, 'project_id': project_id})
-
-class UpdatePortfolioView(View):
-    template_name = 'portfolio_app/update_portfolio.html'
-
-    def get(self, request, portfolio_id):
-        portfolio = get_object_or_404(Portfolio,pk=portfolio_id)
-
-        form = PortfolioForm(instance=portfolio)
-        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id})
-
-    def post(self, request, portfolio_id):
-        portfolio = get_object_or_404(Portfolio,pk=portfolio_id)
-
-        form = PortfolioForm(request.POST, instance=portfolio)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Portfolio updated successfully.')
-            return redirect('portfolio-detail', portfolio_id)
-
-        messages.error(request, 'Portfolio update failed. Please check the form data.')
-        return render(request, self.template_name, {'form': form, 'portfolio_id': portfolio_id})

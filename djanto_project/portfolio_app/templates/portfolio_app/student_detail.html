@@ -6,5 +6,5 @@
 <p><strong>Email:</strong> {{ student.email }}</p>
 <p><strong>Major:</strong> {{ student.major }}</p>
 <p><strong>Portfolio:<a href="{{ student.portfolio.get_absolute_url }}">{{ student.portfolio.title }} </a>
-<a class="btn btn-primary" href="{% url 'update_portfolio' student.portfolio.id %}" role="button">Update Portfolio</a>
+
 {% endblock %}
